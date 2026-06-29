@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shiloah Luxe — Premium Parfum Collection</title>
-
-<!-- Link Preview / Open Graph -->
 <meta property="og:title" content="Shiloah Luxe — Premium Parfum" />
 <meta property="og:description" content="39 signature scents inspired by the world's most iconic fragrances. 60ml parfum — luxury within reach. ₱419 each." />
 <meta property="og:image" content="https://i.ibb.co/5h4DCz5W/FB-IMG-1773109133469.jpg" />
@@ -13,34 +11,58 @@
 <meta property="og:image:height" content="720" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Shiloah Luxe" />
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Shiloah Luxe — Premium Parfum" />
 <meta name="twitter:description" content="39 signature scents inspired by the world's most iconic fragrances. 60ml parfum — luxury within reach. ₱419 each." />
 <meta name="twitter:image" content="https://i.ibb.co/5h4DCz5W/FB-IMG-1773109133469.jpg" />
-
-<!-- SEO -->
 <meta name="description" content="39 signature scents inspired by the world's most iconic fragrances. 60ml parfum — luxury within reach. ₱419 each." />
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --black: #0a0a0a;
-    --gold: #C9A84C;
-    --gold-light: #e8c97a;
-    --cream: #FAF7F2;
-  }
+  :root { --black: #0a0a0a; --gold: #C9A84C; --gold-light: #e8c97a; --cream: #FAF7F2; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--black);
-    color: var(--cream);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.03em;
-    overflow-x: hidden;
+  body { background: var(--black); color: var(--cream); font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 0.03em; overflow-x: hidden; }
+
+  /* LOADING SCREEN */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--black); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1.5rem;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
   }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
+    font-weight: 600; letter-spacing: 0.4em; color: var(--gold);
+    text-transform: uppercase; opacity: 0;
+    animation: loaderFadeIn 0.8s ease 0.3s forwards;
+  }
+  .loader-tagline {
+    font-size: 0.6rem; letter-spacing: 0.5em; text-transform: uppercase;
+    color: rgba(201,168,76,0.4); opacity: 0;
+    animation: loaderFadeIn 0.8s ease 0.7s forwards;
+  }
+  .loader-bar-wrap {
+    width: 120px; height: 1px; background: rgba(201,168,76,0.2);
+    overflow: hidden; opacity: 0;
+    animation: loaderFadeIn 0.5s ease 1s forwards;
+  }
+  .loader-bar {
+    height: 100%; background: var(--gold);
+    animation: loaderBar 1.2s ease 1s forwards;
+  }
+  @keyframes loaderFadeIn { to { opacity: 1; } }
+  @keyframes loaderBar { from { width: 0; } to { width: 100%; } }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* NAV */
   nav {
@@ -48,69 +70,42 @@
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.5rem 4rem;
     background: linear-gradient(to bottom, rgba(10,10,10,0.97), transparent);
+    transition: background 0.3s;
   }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem; font-weight: 600;
-    letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase;
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: none !important; }
+  .hamburger { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 110; }
+  .hamburger span { display: block; width: 24px; height: 1px; background: var(--cream); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 105;
+    background: rgba(10,10,10,0.98); backdrop-filter: blur(10px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
   }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .nav-links a { color: var(--cream); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
-  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .mobile-menu a:hover { opacity: 1; color: var(--gold); }
+  .mobile-menu-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
 
   /* HERO */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    background: radial-gradient(ellipse 80% 80% at 50% 40%, #1a1508 0%, #0a0a0a 70%);
-  }
-  .hero-bg-img {
-    position: absolute; inset: 0; z-index: 0;
-    background-image: url('https://i.ibb.co/rfxsBQS0/Polish-20260526-141318062.png');
-    background-size: cover; background-position: center;
-    opacity: 0.2;
-  }
-  .hero-glow {
-    position: absolute; width: 700px; height: 700px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-    animation: pulse 6s ease-in-out infinite; pointer-events: none;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); }
-  }
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: radial-gradient(ellipse 80% 80% at 50% 40%, #1a1508 0%, #0a0a0a 70%); }
+  .hero-bg-img { position: absolute; inset: 0; z-index: 0; background-image: url('https://i.ibb.co/rfxsBQS0/Polish-20260526-141318062.png'); background-size: cover; background-position: center; opacity: 0.2; }
+  .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse 6s ease-in-out infinite; pointer-events: none; }
+  @keyframes pulse { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
   .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem; }
   .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(4rem, 10vw, 9rem); font-weight: 300; line-height: 0.95;
-    margin-bottom: 1.5rem;
-  }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 10vw, 9rem); font-weight: 300; line-height: 0.95; margin-bottom: 1.5rem; }
   .hero-title em { font-style: italic; color: var(--gold-light); }
   .hero-sub { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(250,247,242,0.45); margin-bottom: 3rem; }
-  .hero-cta {
-    display: inline-block; border: 1px solid var(--gold); color: var(--gold);
-    text-decoration: none; font-size: 0.65rem; letter-spacing: 0.3em;
-    text-transform: uppercase; padding: 1rem 3rem; transition: all 0.35s;
-  }
+  .hero-cta { display: inline-block; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; padding: 1rem 3rem; transition: all 0.35s; }
   .hero-cta:hover { background: var(--gold); color: var(--black); }
-  .hero-scroll {
-    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: rgba(250,247,242,0.3);
-  }
-  .scroll-line {
-    width: 1px; height: 50px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollDrop 2s ease-in-out infinite;
-  }
-  @keyframes scrollDrop {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(250,247,242,0.3); }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollDrop 2s ease-in-out infinite; }
+  @keyframes scrollDrop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
   /* DIVIDER */
   .divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 4rem; }
@@ -118,10 +113,7 @@
   .divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
   /* INTRO */
-  .intro {
-    padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: center; max-width: 1200px; margin: 0 auto;
-  }
+  .intro { padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; max-width: 1200px; margin: 0 auto; }
   .intro-label { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
   .intro-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.25; margin-bottom: 2rem; }
   .intro-title em { font-style: italic; color: var(--gold-light); }
@@ -133,109 +125,104 @@
   .intro-img img { width: 100%; border-radius: 2px; display: block; }
   .img-frame { position: absolute; inset: -12px; border: 1px solid rgba(201,168,76,0.2); border-radius: 2px; pointer-events: none; }
 
-  /* CATALOG SECTION */
-  .catalog {
-    padding: 6rem 4rem; background: #0d0d0d;
-  }
+  /* HOW TO ORDER */
+  .how-to-order { padding: 6rem 4rem; background: #0a0a0a; }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1000px; margin: 0 auto; }
+  .step-card { background: #111; padding: 2.5rem 2rem; position: relative; }
+  .step-number { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 1rem; }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.8rem; }
+  .step-body { font-size: 0.72rem; line-height: 1.8; color: rgba(250,247,242,0.5); }
+
+  /* CATALOG */
+  .catalog { padding: 6rem 4rem; background: #0d0d0d; }
   .section-header { text-align: center; margin-bottom: 4rem; }
   .section-label { font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; }
 
   /* FILTER TABS */
-  .filter-tabs {
-    display: flex; justify-content: center; gap: 0;
-    margin-bottom: 3.5rem; border: 1px solid rgba(201,168,76,0.25);
-    width: fit-content; margin-left: auto; margin-right: auto;
-  }
-  .tab-btn {
-    background: none; border: none; cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: rgba(250,247,242,0.5); padding: 0.85rem 2.5rem;
-    transition: all 0.25s; position: relative;
-    border-right: 1px solid rgba(201,168,76,0.25);
-  }
+  .filter-tabs { display: flex; justify-content: center; margin-bottom: 3.5rem; border: 1px solid rgba(201,168,76,0.25); width: fit-content; margin-left: auto; margin-right: auto; }
+  .tab-btn { background: none; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(250,247,242,0.5); padding: 0.85rem 2.5rem; transition: all 0.25s; border-right: 1px solid rgba(201,168,76,0.25); }
   .tab-btn:last-child { border-right: none; }
   .tab-btn.active { background: var(--gold); color: var(--black); font-weight: 500; }
   .tab-btn:not(.active):hover { color: var(--gold); }
 
   /* SEARCH */
-  .search-wrap {
-    display: flex; justify-content: center; margin-bottom: 3rem;
-  }
-  .search-input {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2);
-    color: var(--cream); font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.15em;
-    padding: 0.85rem 1.5rem; width: 380px; outline: none;
-    transition: border-color 0.2s;
-  }
+  .search-wrap { display: flex; justify-content: center; margin-bottom: 3rem; }
+  .search-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2); color: var(--cream); font-family: 'Montserrat', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; padding: 0.85rem 1.5rem; width: 380px; outline: none; transition: border-color 0.2s; }
   .search-input::placeholder { color: rgba(250,247,242,0.25); }
   .search-input:focus { border-color: rgba(201,168,76,0.6); }
 
   /* SCENT GRID */
-  .scent-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1px; max-width: 1300px; margin: 0 auto;
-  }
-  .scent-card {
-    background: #111; padding: 1.8rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    cursor: pointer; transition: background 0.25s; position: relative;
-    overflow: hidden;
-  }
-  .scent-card::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 2px; background: var(--gold); transform: scaleY(0);
-    transform-origin: bottom; transition: transform 0.3s;
-  }
+  .scent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; max-width: 1300px; margin: 0 auto; }
+  .scent-card { background: #111; padding: 1.8rem 2rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.25s; position: relative; overflow: hidden; cursor: pointer; }
+  .scent-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s; }
   .scent-card:hover { background: #161410; }
   .scent-card:hover::before { transform: scaleY(1); }
   .scent-card.hidden { display: none; }
-
-  .scent-left { display: flex; flex-direction: column; gap: 0.4rem; }
+  .scent-left { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
   .scent-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.6; margin-bottom: 0.2rem; }
   .scent-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; line-height: 1.2; }
   .scent-meta { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,247,242,0.35); }
   .scent-price { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-weight: 400; margin-top: 0.3rem; }
-  .scent-add {
-    width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.3);
-    background: none; color: var(--gold); font-size: 1.2rem;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; flex-shrink: 0;
-  }
+
+  /* QUANTITY CONTROLS */
+  .scent-right { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex-shrink: 0; margin-left: 1rem; }
+  .qty-controls { display: none; flex-direction: row; align-items: center; }
+  .qty-controls.visible { display: flex; }
+  .qty-btn { width: 28px; height: 28px; border: 1px solid rgba(201,168,76,0.4); background: none; color: var(--gold); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1; }
+  .qty-btn:hover { background: var(--gold); color: var(--black); }
+  .qty-num { width: 28px; height: 28px; background: rgba(201,168,76,0.1); border-top: 1px solid rgba(201,168,76,0.4); border-bottom: 1px solid rgba(201,168,76,0.4); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+  .scent-add { width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.3); background: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .scent-add:hover { background: var(--gold); color: var(--black); }
-  .scent-add.added { background: var(--gold); color: var(--black); }
+
+  /* SCENT DETAIL MODAL */
+  .scent-modal-overlay { display: none; position: fixed; inset: 0; z-index: 998; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 1rem; }
+  .scent-modal-overlay.open { display: flex; }
+  .scent-modal { background: #111; border: 1px solid rgba(201,168,76,0.3); max-width: 520px; width: 100%; padding: 2.5rem; position: relative; }
+  .scent-modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: rgba(250,247,242,0.4); font-size: 1.2rem; cursor: pointer; line-height: 1; }
+  .scent-modal-close:hover { color: var(--cream); }
+  .scent-modal-tag { font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .scent-modal-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; margin-bottom: 0.3rem; }
+  .scent-modal-type { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(250,247,242,0.35); margin-bottom: 1.5rem; }
+  .scent-modal-notes { margin-bottom: 1.8rem; }
+  .notes-label { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .notes-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+  .note-chip { font-size: 0.65rem; letter-spacing: 0.1em; border: 1px solid rgba(201,168,76,0.25); padding: 0.3rem 0.7rem; color: rgba(250,247,242,0.6); }
+  .scent-modal-desc { font-size: 0.75rem; line-height: 1.85; color: rgba(250,247,242,0.5); margin-bottom: 2rem; }
+  .scent-modal-footer { display: flex; align-items: center; justify-content: space-between; }
+  .scent-modal-price { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); }
+  .scent-modal-add { background: var(--gold); border: none; color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.8rem 2rem; cursor: pointer; transition: opacity 0.2s; font-weight: 500; }
+  .scent-modal-add:hover { opacity: 0.85; }
+  .scent-modal-add.added { background: #333; color: var(--gold); }
 
   /* CART BAR */
-  .cart-bar {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-    background: var(--gold); color: var(--black);
-    padding: 1.1rem 4rem; display: flex; align-items: center; justify-content: space-between;
-    transform: translateY(100%); transition: transform 0.4s ease;
-  }
+  .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: var(--gold); color: var(--black); transform: translateY(100%); transition: transform 0.4s ease; }
   .cart-bar.visible { transform: translateY(0); }
+  .cart-bar-main { padding: 1.1rem 4rem; display: flex; align-items: center; justify-content: space-between; }
   .cart-bar-left { font-size: 0.7rem; letter-spacing: 0.15em; font-weight: 500; }
   .cart-bar-left span { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-right: 0.5rem; }
   .cart-bar-right { display: flex; gap: 2rem; align-items: center; }
+  .cart-toggle-summary { background: none; border: none; color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; padding: 0; }
+  .cart-toggle-summary:hover { opacity: 1; }
   .cart-clear { background: none; border: 1px solid rgba(10,10,10,0.3); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.5rem 1.2rem; cursor: pointer; transition: background 0.2s; }
   .cart-clear:hover { background: rgba(10,10,10,0.1); }
   .cart-order { background: var(--black); border: none; color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.7rem 2rem; cursor: pointer; transition: opacity 0.2s; }
   .cart-order:hover { opacity: 0.85; }
+  .cart-summary-drawer { display: none; border-top: 1px solid rgba(10,10,10,0.15); background: rgba(10,10,10,0.08); padding: 1rem 4rem; max-height: 180px; overflow-y: auto; }
+  .cart-summary-drawer.open { display: block; }
+  .cart-summary-item { display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; font-size: 0.68rem; letter-spacing: 0.1em; border-bottom: 1px solid rgba(10,10,10,0.1); color: rgba(10,10,10,0.75); }
+  .cart-summary-item:last-child { border-bottom: none; }
+  .cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; }
+  .cart-item-price { font-weight: 500; }
 
   /* PROMISE STRIP */
-  .promise-strip {
-    background: #0d0d0d; border-top: 1px solid rgba(201,168,76,0.15);
-    border-bottom: 1px solid rgba(201,168,76,0.15);
-    padding: 2rem 4rem; display: flex; justify-content: center;
-    gap: 5rem; align-items: center; flex-wrap: wrap;
-  }
+  .promise-strip { background: #0d0d0d; border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); padding: 2rem 4rem; display: flex; justify-content: center; gap: 5rem; align-items: center; flex-wrap: wrap; }
   .promise-item { display: flex; align-items: center; gap: 0.9rem; }
   .promise-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
   .promise-text { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,247,242,0.5); }
 
   /* COLLECTIONS */
-  .collections { display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh; }
+  .collections { display: grid; grid-template-columns: 1fr 1fr 1fr; min-height: 60vh; }
   .collection-panel { position: relative; overflow: hidden; cursor: pointer; }
   .collection-panel img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; filter: brightness(0.65); }
   .collection-panel:hover img { transform: scale(1.04); filter: brightness(0.75); }
@@ -245,16 +232,29 @@
   .collection-cta { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,247,242,0.6); text-decoration: none; border-bottom: 1px solid rgba(250,247,242,0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .collection-cta:hover { color: var(--gold); border-color: var(--gold); }
 
+  /* TESTIMONIALS */
+  .testimonials { padding: 6rem 4rem; background: #080808; }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 1200px; margin: 0 auto; }
+  .testimonial-card { background: #111; padding: 2.5rem; position: relative; }
+  .testimonial-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; margin-bottom: 1.2rem; }
+  .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: rgba(250,247,242,0.7); margin-bottom: 1.5rem; }
+  .testimonial-author { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+  .testimonial-location { font-size: 0.58rem; letter-spacing: 0.15em; color: rgba(250,247,242,0.25); margin-top: 0.2rem; }
+
+  /* FAQ */
+  .faq-section { padding: 6rem 4rem; background: #0d0d0d; }
+  .faq-list { max-width: 800px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(201,168,76,0.15); }
+  .faq-question { width: 100%; background: none; border: none; color: var(--cream); font-family: 'Montserrat', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; font-weight: 400; text-align: left; padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color 0.2s; }
+  .faq-question:hover { color: var(--gold); }
+  .faq-icon { color: var(--gold); font-size: 1rem; transition: transform 0.3s; flex-shrink: 0; line-height: 1; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-answer { display: none; padding: 0 0 1.5rem; font-size: 0.75rem; line-height: 1.9; color: rgba(250,247,242,0.5); }
+  .faq-item.open .faq-answer { display: block; }
+
   /* QUOTE */
-  .quote-section {
-    padding: 8rem 4rem; text-align: center; background: #080808; position: relative; overflow: hidden;
-  }
-  .quote-bg-text {
-    position: absolute; font-family: 'Cormorant Garamond', serif;
-    font-size: 20vw; font-style: italic; color: rgba(201,168,76,0.04);
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
-    white-space: nowrap; pointer-events: none; user-select: none;
-  }
+  .quote-section { padding: 8rem 4rem; text-align: center; background: #080808; position: relative; overflow: hidden; }
+  .quote-bg-text { position: absolute; font-family: 'Cormorant Garamond', serif; font-size: 20vw; font-style: italic; color: rgba(201,168,76,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); white-space: nowrap; pointer-events: none; user-select: none; }
   .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 5rem; line-height: 0.5; color: var(--gold); opacity: 0.4; display: block; margin-bottom: 1.5rem; }
   .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem,3vw,2.5rem); font-weight: 300; font-style: italic; line-height: 1.5; max-width: 800px; margin: 0 auto 2rem; position: relative; z-index: 1; }
   .quote-author { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); position: relative; z-index: 1; }
@@ -278,37 +278,65 @@
   .no-results { display: none; text-align: center; padding: 4rem; color: rgba(250,247,242,0.3); font-size: 0.75rem; letter-spacing: 0.15em; width: 100%; grid-column: 1/-1; }
   .no-results.visible { display: block; }
 
+  /* BACK TO TOP */
+  .back-to-top { position: fixed; bottom: 5rem; right: 2rem; z-index: 150; width: 44px; height: 44px; border: 1px solid rgba(201,168,76,0.4); background: rgba(10,10,10,0.85); color: var(--gold); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s, background 0.2s; font-size: 1rem; backdrop-filter: blur(4px); }
+  .back-to-top.visible { opacity: 1; pointer-events: all; }
+  .back-to-top:hover { background: var(--gold); color: var(--black); }
+
   @media (max-width: 900px) {
     nav { padding: 1.5rem 1.5rem; }
-    .nav-links { display: none; }
     .intro { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
     .catalog { padding: 5rem 1.5rem; }
+    .how-to-order { padding: 5rem 1.5rem; }
     .scent-grid { grid-template-columns: 1fr 1fr; }
     .collections { grid-template-columns: 1fr; }
     .filter-tabs { flex-wrap: wrap; }
     .search-input { width: 100%; max-width: 340px; }
     footer { padding: 3rem 1.5rem 1.5rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .cart-bar { padding: 1rem 1.5rem; }
+    .cart-bar-main { padding: 1rem 1.5rem; }
+    .cart-summary-drawer { padding: 1rem 1.5rem; }
     .promise-strip { gap: 2rem; padding: 1.5rem; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .faq-section { padding: 5rem 1.5rem; }
+    .testimonials { padding: 5rem 1.5rem; }
   }
   @media (max-width: 540px) {
     .scent-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 3.5rem; }
+    .collections { grid-template-columns: 1fr; }
+    .cart-toggle-summary { display: none; }
   }
 </style>
 </head>
 <body>
 
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">Shiloah Luxe</div>
+  <div class="loader-tagline">Premium Parfum · 60ml</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-logo">Shiloah Luxe</div>
+  <a href="#catalog" onclick="closeMobileMenu()">Shop</a>
+  <a href="#catalog" onclick="filterScents('men', null); closeMobileMenu()">Men</a>
+  <a href="#catalog" onclick="filterScents('women', null); closeMobileMenu()">Women</a>
+  <a href="#catalog" onclick="filterScents('unisex', null); closeMobileMenu()">Unisex</a>
+  <a href="#about" onclick="closeMobileMenu()">Our Story</a>
+  <a href="#how-to-order" onclick="closeMobileMenu()">How to Order</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+</div>
+
 <nav>
   <div class="nav-logo">Shiloah Luxe</div>
-  <ul class="nav-links">
-    <li><a href="#catalog">Shop</a></li>
-    <li><a href="#catalog">Men</a></li>
-    <li><a href="#catalog">Women</a></li>
-    <li><a href="#catalog">Unisex</a></li>
-    <li><a href="#about">Our Story</a></li>
-  </ul>
+  <ul class="nav-links"></ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -321,17 +349,14 @@
     <p class="hero-sub">39 Signature Scents · For Him · For Her · Unisex</p>
     <a href="#catalog" class="hero-cta">Explore All Scents</a>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
 </section>
 
 <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
 <!-- INTRO -->
 <section class="intro" id="about">
-  <div>
+  <div class="reveal">
     <div class="intro-label">Our Philosophy</div>
     <h2 class="intro-title">Luxury scent,<br><em>within reach.</em></h2>
     <p class="intro-body">Shiloah Luxe bridges the gap between the world's most coveted fragrances and everyday accessibility. Every bottle is a faithful homage — a 60ml parfum crafted to carry the same soul, the same memory, the same presence.</p>
@@ -342,7 +367,7 @@
       <div><span class="stat-num">3</span><span class="stat-label">Collections</span></div>
     </div>
   </div>
-  <div class="intro-img">
+  <div class="intro-img reveal reveal-delay-2">
     <img src="https://i.ibb.co/Kz8cg3v2/received-987707327398976.jpg" alt="Shiloah Luxe Parfum">
     <div class="img-frame"></div>
   </div>
@@ -350,186 +375,249 @@
 
 <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
+<!-- HOW TO ORDER -->
+<section class="how-to-order" id="how-to-order">
+  <div class="section-header reveal">
+    <span class="section-label">Simple Process</span>
+    <h2 class="section-title">How to <em style="font-style:italic;color:var(--gold-light);">Order</em></h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal reveal-delay-1">
+      <div class="step-number">01</div>
+      <div class="step-title">Browse & Pick</div>
+      <p class="step-body">Scroll through our 39 signature scents. Click any card to see the full scent notes and description. Add your favorites to your cart.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-2">
+      <div class="step-number">02</div>
+      <div class="step-title">Review Your Order</div>
+      <p class="step-body">Check your selections in the cart bar at the bottom. You can adjust quantities or remove items anytime before ordering.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-3">
+      <div class="step-number">03</div>
+      <div class="step-title">Message Us</div>
+      <p class="step-body">Click "Order Now" and we'll open Facebook Messenger with your order ready to send. Just hit send — we'll take it from there!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
 <!-- CATALOG -->
 <section class="catalog" id="catalog">
-  <div class="section-header">
+  <div class="section-header reveal">
     <span class="section-label">Full Collection</span>
     <h2 class="section-title">Shop All Scents</h2>
   </div>
-
   <div class="filter-tabs">
     <button class="tab-btn active" onclick="filterScents('all', this)">All (39)</button>
     <button class="tab-btn" onclick="filterScents('men', this)">Men (19)</button>
     <button class="tab-btn" onclick="filterScents('women', this)">Women (18)</button>
     <button class="tab-btn" onclick="filterScents('unisex', this)">Unisex (2)</button>
   </div>
-
   <div class="search-wrap">
     <input class="search-input" type="text" placeholder="Search a fragrance..." oninput="searchScents(this.value)">
   </div>
-
   <div class="scent-grid" id="scentGrid">
 
     <!-- MEN -->
-    <div class="scent-card" data-category="men" data-name="aqua de gio">
+    <div class="scent-card" data-category="men" data-name="aqua de gio" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Aqua De Gio</div><div class="scent-meta">For Him · Fresh Aquatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Aqua De Gio')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Aqua De Gio')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Aqua De Gio',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Aqua De Gio',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Neroli, Rosemary" data-heart="Jasmine, Geranium, Cyclamen" data-base="Cedarwood, Patchouli, Musk" data-desc="A fresh aquatic fragrance that captures the essence of the Mediterranean sea. Light, airy, and effortlessly cool — perfect for daily wear."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="bleu de chanel">
+    <div class="scent-card" data-category="men" data-name="bleu de chanel" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Bleu De Chanel</div><div class="scent-meta">For Him · Woody Aromatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Bleu De Chanel')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Bleu De Chanel')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bleu De Chanel',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bleu De Chanel',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Citrus, Mint, Pink Pepper" data-heart="Ginger, Nutmeg, Jasmine" data-base="Cedarwood, Sandalwood, Incense" data-desc="An elegant woody aromatic that embodies freedom and masculine sophistication. Deep, confident, and unforgettable."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="bvlgari aqua">
+    <div class="scent-card" data-category="men" data-name="bvlgari aqua" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Bvlgari Aqua</div><div class="scent-meta">For Him · Aquatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Bvlgari Aqua')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Bvlgari Aqua')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bvlgari Aqua',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bvlgari Aqua',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Petitgrain, Bergamot, Grapefruit" data-heart="Water Accord, Seaweed, Posidonia" data-base="Musk, Amber, Cedarwood" data-desc="A clean, crisp aquatic scent inspired by the purity of water. Refreshing and invigorating from morning to night."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="creed aventus">
+    <div class="scent-card" data-category="men" data-name="creed aventus" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Creed Aventus</div><div class="scent-meta">For Him · Fruity Chypre</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Creed Aventus')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Creed Aventus')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Creed Aventus',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Creed Aventus',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Pineapple, Bergamot, Blackcurrant, Apple" data-heart="Rose, Dry Birch, Jasmine, Patchouli" data-base="Oakmoss, Ambergris, Musk, Vanilla" data-desc="A legendary fragrance celebrating strength and success. Smoky, fruity, and bold — the ultimate power scent worn by icons."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="d&g light blue">
+    <div class="scent-card" data-category="men" data-name="d&g light blue" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">D&amp;G Light Blue</div><div class="scent-meta">For Him · Fresh Citrus</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'D&G Light Blue')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'D&G Light Blue')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'D&G Light Blue',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'D&G Light Blue',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Grapefruit, Bergamot, Sicilian Mandarin" data-heart="Juniper, Pepper, Rosewood" data-base="Musk, Oakmoss, Incense" data-desc="A sparkling Italian summer in a bottle. Fresh citrus energy that stays bright and clean all day long."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="dior sauvage">
+    <div class="scent-card" data-category="men" data-name="dior sauvage" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Dior Sauvage</div><div class="scent-meta">For Him · Aromatic Fougère</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Dior Sauvage')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Dior Sauvage')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Dior Sauvage',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Dior Sauvage',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Pepper" data-heart="Lavender, Sichuan Pepper, Vetiver" data-base="Ambroxan, Cedar, Labdanum" data-desc="Raw, radiant, and wild. A rugged masculinity inspired by vast open landscapes — spicy, fresh, and deeply magnetic."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="dunhill desire">
+    <div class="scent-card" data-category="men" data-name="dunhill desire" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Dunhill Desire</div><div class="scent-meta">For Him · Oriental Woody</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Dunhill Desire')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Dunhill Desire')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Dunhill Desire',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Dunhill Desire',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Mandarin, Basil" data-heart="Black Pepper, Nutmeg, Cardamom" data-base="Sandalwood, Vetiver, Amber" data-desc="A warm, sensual oriental woody scent with spicy depth. Sophisticated and seductive for evening occasions."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="eclat men">
+    <div class="scent-card" data-category="men" data-name="eclat men" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Eclat Men</div><div class="scent-meta">For Him · Fresh Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Eclat Men')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Eclat Men')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Eclat Men',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Eclat Men',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Mandarin, Bergamot, Grapefruit" data-heart="Rose, Lily, Jasmine" data-base="White Musk, Cedarwood" data-desc="A bright and clean fresh floral for the modern man. Light yet distinctive, perfect for the office or a casual day out."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="eros versace">
+    <div class="scent-card" data-category="men" data-name="eros versace" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Eros Versace</div><div class="scent-meta">For Him · Fresh Oriental</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Eros Versace')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Eros Versace')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Eros Versace',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Eros Versace',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Mint, Green Apple, Lemon" data-heart="Tonka Bean, Ambroxan, Geranium" data-base="Vanilla, Vetiver, Oakmoss, Cedarwood" data-desc="Named after the god of love. An intoxicating blend of fresh mint and sweet vanilla that commands attention in any room."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="ferrari black">
+    <div class="scent-card" data-category="men" data-name="ferrari black" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Ferrari Black</div><div class="scent-meta">For Him · Woody Spicy</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Ferrari Black')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Ferrari Black')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Ferrari Black',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Ferrari Black',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Blackcurrant, Citrus, Lavender" data-heart="Cinnamon, Geranium, Pepper" data-base="Cedarwood, Vetiver, Leather, Musk" data-desc="Powerful and assertive, like the car it's named after. A bold woody spicy scent for the man who drives his own destiny."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="gentle men society">
+    <div class="scent-card" data-category="men" data-name="gentle men society" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Gentle Men Society</div><div class="scent-meta">For Him · Woody Musky</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Gentle Men Society')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Gentle Men Society')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Gentle Men Society',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Gentle Men Society',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Cardamom, Grapefruit" data-heart="Cedarwood, Vetiver, Orris" data-base="White Musk, Amber, Sandalwood" data-desc="Refined and understated. A clean woody musk that speaks of quiet confidence — the signature of a true gentleman."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="hugo boss">
+    <div class="scent-card" data-category="men" data-name="hugo boss" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Hugo Boss</div><div class="scent-meta">For Him · Fresh Green</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Hugo Boss')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Hugo Boss')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Hugo Boss',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Hugo Boss',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Apple, Spearmint, Basil" data-heart="Geranium, Lavender, Sage" data-base="Oakmoss, Cedarwood, Musk" data-desc="Fresh and unconventional. A green aromatic scent for the man who sets his own rules and doesn't follow the crowd."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="issey miyake">
+    <div class="scent-card" data-category="men" data-name="issey miyake" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Issey Miyake</div><div class="scent-meta">For Him · Fresh Aquatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Issey Miyake')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Issey Miyake')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Issey Miyake',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Issey Miyake',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Yuzu, Bergamot, Mandarin" data-heart="Water Lily, Cyclamen, Nutmeg" data-base="White Cedar, Musk, Amber" data-desc="Clean as water, pure as air. A timeless Japanese-inspired aquatic that's universally loved and endlessly wearable."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="lacoste essential">
+    <div class="scent-card" data-category="men" data-name="lacoste essential" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Lacoste Essential</div><div class="scent-meta">For Him · Fresh Aromatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Lacoste Essential')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Lacoste Essential')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Lacoste Essential',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Lacoste Essential',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Tomato Leaf, Bergamot, Cassis" data-heart="Rose, Jasmine, Cactus" data-base="Vetiver, Patchouli, White Musk" data-desc="Sport meets sophistication. A uniquely fresh aromatic anchored by crisp tomato leaf — active and effortlessly stylish."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="lv imagination">
+    <div class="scent-card" data-category="men" data-name="lv imagination" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">LV Imagination</div><div class="scent-meta">For Him · Woody Citrus</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'LV Imagination')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'LV Imagination')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'LV Imagination',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'LV Imagination',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Clementine, Bergamot, Grapefruit" data-heart="Vetiver, Patchouli, Cedarwood" data-base="Tonka Bean, Sandalwood, Musk" data-desc="A luxury woody citrus that balances bright freshness with deep earthy warmth. Refined, creative, and distinctly Louis Vuitton."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="mont blanc">
+    <div class="scent-card" data-category="men" data-name="mont blanc" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Mont Blanc</div><div class="scent-meta">For Him · Fresh Fougère</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Mont Blanc')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Mont Blanc')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Mont Blanc',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Mont Blanc',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Lavender, Aquatic Notes" data-heart="Coumarin, Oakmoss, Geranium" data-base="Sandalwood, Musk, Vetiver" data-desc="A classic fresh fougère that represents timeless masculine elegance. Cool, clean, and perfectly balanced for any occasion."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="one in a million">
+    <div class="scent-card" data-category="men" data-name="one in a million" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">One In A Million</div><div class="scent-meta">For Him · Spicy Woody</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'One In A Million')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'One In A Million')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'One In A Million',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'One In A Million',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Blood Orange, Grapefruit, Pepper" data-heart="Cinnamon, Cardamom, Guaiac Wood" data-base="Patchouli, Leather, Amber" data-desc="Made for the rare and the exceptional. A rich spicy woody that demands attention and leaves a lasting trail."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="polo sports">
+    <div class="scent-card" data-category="men" data-name="polo sports" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">Polo Sports</div><div class="scent-meta">For Him · Fresh Aromatic</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Polo Sports')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Polo Sports')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Polo Sports',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Polo Sports',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Lemon, Grapefruit, Marine Notes" data-heart="Jasmine, Rosemary, Lavender" data-base="Musk, Oakmoss, Sandalwood" data-desc="The scent of an active lifestyle. Fresh, clean, and sporty — energizing from the first spray to the last trace."></div>
     </div>
-    <div class="scent-card" data-category="men" data-name="ysl y le parfum">
+    <div class="scent-card" data-category="men" data-name="ysl y le parfum" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot"></div><div class="scent-name">YSL Y Le Parfum</div><div class="scent-meta">For Him · Woody Spicy</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'YSL Y Le Parfum')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'YSL Y Le Parfum')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'YSL Y Le Parfum',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'YSL Y Le Parfum',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Ginger, Sage" data-heart="Geranium, Juniper Berry, Fir Balsam" data-base="Cedarwood, Amberwood, Tonka" data-desc="Bold and modern. A confident woody spicy that captures the spirit of the daring YSL man — intense, expressive, free."></div>
     </div>
 
     <!-- WOMEN -->
-    <div class="scent-card" data-category="women" data-name="ariana grande cloud">
+    <div class="scent-card" data-category="women" data-name="ariana grande cloud" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Ariana Grande Cloud</div><div class="scent-meta">For Her · Soft Musky</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Ariana Grande Cloud')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Ariana Grande Cloud')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Ariana Grande Cloud',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Ariana Grande Cloud',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Lavender, Pear, Bergamot" data-heart="Whipped Cream, Praline, Coconut" data-base="Musk, Cashmere, Vanilla" data-desc="Dreamy, soft, and irresistibly sweet. Like floating on a cloud — cozy, feminine, and utterly addictive."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="bombshell">
+    <div class="scent-card" data-category="women" data-name="bombshell" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Bombshell</div><div class="scent-meta">For Her · Floral Fruity</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Bombshell')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Bombshell')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bombshell',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bombshell',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Purple Passion Fruit, Shangri-La Peony, Vanilla Orchid" data-heart="Rose, Mango, Peach" data-base="Musk, Oakmoss, Sandalwood" data-desc="Glamorous and vivacious. A bold floral fruity that turns heads and makes a statement — for the woman who owns every room."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="bvlgari omnia amethyste">
+    <div class="scent-card" data-category="women" data-name="bvlgari omnia amethyste" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Bvlgari Omnia Amethyste</div><div class="scent-meta">For Her · Floral Woody</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Bvlgari Omnia Amethyste')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Bvlgari Omnia Amethyste')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bvlgari Omnia Amethyste',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bvlgari Omnia Amethyste',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Water Lily, Mandarin, Rose" data-heart="Violet, Iris, Jasmine" data-base="White Musk, Guaiac Wood, Sandalwood" data-desc="As precious as the gemstone it's named after. A delicate floral woody with an ethereal, crystalline beauty."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="delina">
+    <div class="scent-card" data-category="women" data-name="delina" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Delina</div><div class="scent-meta">For Her · Floral Rose</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Delina')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Delina')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Delina',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Delina',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Rhubarb, Lychee, Bergamot, Nutmeg" data-heart="Rose, Turkish Rose, Peony, Cashmere" data-base="Musk, Cedarwood, Vanilla, Cashmeran" data-desc="A modern rose masterpiece. Feminine, romantic, and multi-dimensional — Delina is the scent of a woman in full bloom."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="elizabeth arden green tea">
+    <div class="scent-card" data-category="women" data-name="elizabeth arden green tea" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Elizabeth Arden Green Tea</div><div class="scent-meta">For Her · Fresh Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Elizabeth Arden Green Tea')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Elizabeth Arden Green Tea')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Elizabeth Arden Green Tea',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Elizabeth Arden Green Tea',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Green Tea, Rhubarb, Celery" data-heart="Carnation, Jasmine, Rose" data-base="Oakmoss, Musk, Amber" data-desc="Pure, clean, and refreshing like a morning cup of green tea. A timeless classic that's effortlessly wearable every day."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="gucci guilty">
+    <div class="scent-card" data-category="women" data-name="gucci guilty" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Gucci Guilty</div><div class="scent-meta">For Her · Oriental Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Gucci Guilty')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Gucci Guilty')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Gucci Guilty',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Gucci Guilty',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Pink Pepper, Mandarin Orange, Geranium" data-heart="Peach, Lilac, Wild Rose" data-base="Patchouli, Amber, Musk" data-desc="Unapologetically sensual. A daring oriental floral for the woman who lives by her own rules and wears her confidence."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="jo malone english pear freesia">
+    <div class="scent-card" data-category="women" data-name="jo malone english pear freesia" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Jo Malone English Pear &amp; Freesia</div><div class="scent-meta">For Her · Fruity Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Jo Malone English Pear & Freesia')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Jo Malone English Pear & Freesia')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Jo Malone English Pear & Freesia',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Jo Malone English Pear & Freesia',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Crisp Pear, Melon, Rhubarb" data-heart="White Freesia, Rose, Heliotrope" data-base="Amber, Patchouli, White Musk" data-desc="The essence of an English autumn morning. Ripe, dewy pear meets delicate freesia in a quintessentially British elegance."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="katy perry meow">
+    <div class="scent-card" data-category="women" data-name="katy perry meow" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Katy Perry Meow</div><div class="scent-meta">For Her · Floral Fruity</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Katy Perry Meow')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Katy Perry Meow')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Katy Perry Meow',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Katy Perry Meow',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Pear, Bamboo, Apricot" data-heart="Jasmine, Peony, Freesia" data-base="Sandalwood, Musk, Vanilla" data-desc="Playful, feminine, and fun. Sweet fruity florals with a soft, warm base — the perfect scent for the girl who loves to stand out."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="miss dior">
+    <div class="scent-card" data-category="women" data-name="miss dior" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Miss Dior</div><div class="scent-meta">For Her · Floral Chypre</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Miss Dior')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Miss Dior')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Miss Dior',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Miss Dior',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Blood Orange, Bergamot, Strawberry" data-heart="Peony, Rose, Lily of the Valley" data-base="Patchouli, Sandalwood, White Musk" data-desc="A love letter in fragrance form. A beautifully feminine chypre that is romantic, spirited, and endlessly charming."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="paris hilton">
+    <div class="scent-card" data-category="women" data-name="paris hilton" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Paris Hilton</div><div class="scent-meta">For Her · Floral Fruity</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Paris Hilton')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Paris Hilton')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Paris Hilton',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Paris Hilton',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Peach, Apple, Watermelon, Ylang" data-heart="Gardenia, Jasmine, Lily of the Valley" data-base="Musk, Sandalwood, Vanilla, Amber" data-desc="Sweet, flirty, and luxurious. A signature floral fruity that captures old-Hollywood glamour with a modern, carefree spirit."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="prada paradox">
+    <div class="scent-card" data-category="women" data-name="prada paradox" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Prada Paradox</div><div class="scent-meta">For Her · Amber Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Prada Paradox')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Prada Paradox')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Prada Paradox',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Prada Paradox',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Heliotrope, Neroli, Bergamot" data-heart="White Flowers, Labdanum, Musk" data-base="Amber, Tonka Bean, Sandalwood" data-desc="Where contradictions become beauty. A warm amber floral that is simultaneously familiar and surprising — the Prada paradox."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="pure seduction vs">
+    <div class="scent-card" data-category="women" data-name="pure seduction vs" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Pure Seduction VS</div><div class="scent-meta">For Her · Fruity Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Pure Seduction VS')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Pure Seduction VS')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Pure Seduction VS',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Pure Seduction VS',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Red Apple, Plum" data-heart="Freesia, Peach Nectar" data-base="Musk, Amber" data-desc="Irresistibly sweet and feminine. Juicy red apple meets soft florals in a playful, carefree scent that's perfect for everyday seduction."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="scandalous vs">
+    <div class="scent-card" data-category="women" data-name="scandalous vs" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Scandalous VS</div><div class="scent-meta">For Her · Oriental Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Scandalous VS')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Scandalous VS')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Scandalous VS',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Scandalous VS',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Jasmine, Mandarin, Pink Pepper" data-heart="Rose, Gardenia, Tuberose" data-base="Sandalwood, Musk, Patchouli, Amber" data-desc="Daring, intoxicating, and unforgettable. A rich oriental floral for the woman who isn't afraid to make a scene."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="sf incanto charm">
+    <div class="scent-card" data-category="women" data-name="sf incanto charm" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">SF Incanto Charm</div><div class="scent-meta">For Her · Floral Fruity</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'SF Incanto Charm')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'SF Incanto Charm')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'SF Incanto Charm',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'SF Incanto Charm',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Peach, Mandarin, Freesia" data-heart="Wisteria, Waterlily, Muguet" data-base="Sandalwood, Musk, Amber" data-desc="Charming and delightfully feminine. Light aquatic florals with juicy peach — an enchanting scent for the girl next door."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="valaya">
+    <div class="scent-card" data-category="women" data-name="valaya" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Valaya</div><div class="scent-meta">For Her · Floral Musky</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Valaya')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Valaya')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Valaya',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Valaya',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Lychee, Raspberry" data-heart="Rose, Peony, Jasmine" data-base="Musk, Vanilla, Cedarwood" data-desc="Soft, warm, and sensual. A floral musk that wraps you in elegance — like wearing your favourite cashmere on a perfect day."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="vanilla lace">
+    <div class="scent-card" data-category="women" data-name="vanilla lace" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Vanilla Lace</div><div class="scent-meta">For Her · Sweet Vanilla</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Vanilla Lace')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Vanilla Lace')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Vanilla Lace',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Vanilla Lace',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Soft Citrus, Bergamot" data-heart="Jasmine, Magnolia, Soft Florals" data-base="Vanilla, Sandalwood, White Musk, Amber" data-desc="Delicate and dreamy. Soft white florals wrapped in warm vanilla — feminine, comforting, and utterly lovable."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="ysl libre">
+    <div class="scent-card" data-category="women" data-name="ysl libre" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">YSL Libre</div><div class="scent-meta">For Her · Floral Woody</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'YSL Libre')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'YSL Libre')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'YSL Libre',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'YSL Libre',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Lavender, Mandarin, Petitgrain" data-heart="Lavender, Orange Blossom, Jasmine" data-base="Cedar, Musk, Amberwood, Vanilla" data-desc="Freedom is the ultimate luxury. A bold floral woody that blends masculine lavender with feminine florals — for the woman without limits."></div>
     </div>
-    <div class="scent-card" data-category="women" data-name="selena gomez">
+    <div class="scent-card" data-category="women" data-name="selena gomez" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#e8c97a"></div><div class="scent-name">Selena Gomez</div><div class="scent-meta">For Her · Floral Musky</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Selena Gomez')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Selena Gomez')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Selena Gomez',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Selena Gomez',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Peach, Plum, Lychee" data-heart="Jasmine, Tuberose, Rose" data-base="Musk, Sandalwood, Amber" data-desc="Warm, authentic, and deeply personal. A floral musk that radiates genuine beauty — soft enough for everyday, special enough to remember."></div>
     </div>
 
     <!-- UNISEX -->
-    <div class="scent-card" data-category="unisex" data-name="bacarrat rouge 540">
+    <div class="scent-card" data-category="unisex" data-name="bacarrat rouge 540" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#fff"></div><div class="scent-name">Bacarrat Rouge 540</div><div class="scent-meta">Unisex · Amber Floral</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'Bacarrat Rouge 540')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'Bacarrat Rouge 540')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bacarrat Rouge 540',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'Bacarrat Rouge 540',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Saffron, Jasmine" data-heart="Amberwood, Fir Resin" data-base="Cedarwood, Musk" data-desc="The most coveted fragrance in the world. An ethereal amber floral that is luminous, addictive, and unmistakable — worn by those who know."></div>
     </div>
-    <div class="scent-card" data-category="unisex" data-name="ck one">
+    <div class="scent-card" data-category="unisex" data-name="ck one" onclick="openScentModal(this)">
       <div class="scent-left"><div class="scent-dot" style="background:#fff"></div><div class="scent-name">CK One</div><div class="scent-meta">Unisex · Fresh Citrus</div><div class="scent-price">₱419</div></div>
-      <button class="scent-add" onclick="addToCart(this, 'CK One')">+</button>
+      <div class="scent-right"><button class="scent-add" onclick="event.stopPropagation();addToCart(this,'CK One')">+</button><div class="qty-controls"><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'CK One',-1)">−</button><div class="qty-num">1</div><button class="qty-btn" onclick="event.stopPropagation();changeQty(this,'CK One',1)">+</button></div></div>
+      <div class="scent-data" hidden data-top="Bergamot, Pineapple, Cardamom, Papaya" data-heart="Violet, Rose, Jasmine, Lily of the Valley" data-base="Amber, Musk, Sandalwood, Cedar" data-desc="The original unisex fragrance that changed everything. Clean, modern, and democratic — a timeless classic for him, for her, for everyone."></div>
     </div>
 
     <div class="no-results" id="noResults">No scents found. Try a different search.</div>
@@ -538,27 +626,30 @@
 
 <!-- PROMISE STRIP -->
 <div class="promise-strip">
-  <div class="promise-item"><div class="promise-dot"></div><span class="promise-text">60ml Parfum Concentration</span></div>
-  <div class="promise-item"><div class="promise-dot"></div><span class="promise-text">39 Signature Scents</span></div>
-  <div class="promise-item"><div class="promise-dot"></div><span class="promise-text">Premium Quality</span></div>
-  <div class="promise-item"><div class="promise-dot"></div><span class="promise-text">Luxury for Everyone</span></div>
+  <div class="promise-item reveal"><div class="promise-dot"></div><span class="promise-text">60ml Parfum Concentration</span></div>
+  <div class="promise-item reveal reveal-delay-1"><div class="promise-dot"></div><span class="promise-text">39 Signature Scents</span></div>
+  <div class="promise-item reveal reveal-delay-2"><div class="promise-dot"></div><span class="promise-text">Premium Quality</span></div>
+  <div class="promise-item reveal reveal-delay-3"><div class="promise-dot"></div><span class="promise-text">Luxury for Everyone</span></div>
 </div>
 
 <!-- GALLERY -->
 <section style="padding:5rem 4rem; background:#080808;">
-  <div class="section-header" style="margin-bottom:3rem;">
+  <div class="section-header reveal" style="margin-bottom:3rem;">
     <span class="section-label">Our Bottles</span>
-    <h2 class="section-title">Crafted with <em style="font-style:italic; color:var(--gold-light);">Elegance</em></h2>
+    <h2 class="section-title">Crafted with <em style="font-style:italic;color:var(--gold-light);">Elegance</em></h2>
   </div>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:1200px; margin:0 auto;">
-    <div style="overflow:hidden; aspect-ratio:3/4;">
-      <img src="https://i.ibb.co/rfxsBQS0/Polish-20260526-141318062.png" alt="Men Collection" style="width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1200px;margin:0 auto;">
+    <div class="reveal reveal-delay-1" style="overflow:hidden;position:relative;">
+      <div style="aspect-ratio:3/4;overflow:hidden;"><img src="https://i.ibb.co/rfxsBQS0/Polish-20260526-141318062.png" alt="Men Collection" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:1rem 0.5rem;"><div style="font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">For Him</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--cream);opacity:0.8;">Men's Collection · 19 Scents</div></div>
     </div>
-    <div style="overflow:hidden; aspect-ratio:3/4;">
-      <img src="https://i.ibb.co/Kz8cg3v2/received-987707327398976.jpg" alt="Women Collection" style="width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <div class="reveal reveal-delay-2" style="overflow:hidden;position:relative;">
+      <div style="aspect-ratio:3/4;overflow:hidden;"><img src="https://i.ibb.co/Kz8cg3v2/received-987707327398976.jpg" alt="Women Collection" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:1rem 0.5rem;"><div style="font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">For Her</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--cream);opacity:0.8;">Women's Collection · 18 Scents</div></div>
     </div>
-    <div style="overflow:hidden; aspect-ratio:3/4;">
-      <img src="https://i.ibb.co/CsvRRqjQ/Polish-20260527-101411910.png" alt="Full Collection" style="width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <div class="reveal reveal-delay-3" style="overflow:hidden;position:relative;">
+      <div style="aspect-ratio:3/4;overflow:hidden;"><img src="https://i.ibb.co/CsvRRqjQ/Polish-20260527-101411910.png" alt="Full Collection" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;display:block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:1rem 0.5rem;"><div style="font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">Unisex</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--cream);opacity:0.8;">Full Collection · 39 Scents</div></div>
     </div>
   </div>
 </section>
@@ -569,18 +660,82 @@
 <section class="collections">
   <div class="collection-panel">
     <img src="https://i.ibb.co/ZzZPh8TL/received-964656286375075.jpg" alt="For Him">
-    <div class="collection-info">
-      <div class="collection-tag">Collection · 19 Scents</div>
-      <div class="collection-name">For Him</div>
-      <a href="#catalog" class="collection-cta" onclick="filterScents('men', document.querySelectorAll('.tab-btn')[1])">Shop Men →</a>
-    </div>
+    <div class="collection-info"><div class="collection-tag">Collection · 19 Scents</div><div class="collection-name">For Him</div><a href="#catalog" class="collection-cta" onclick="filterScents('men',document.querySelectorAll('.tab-btn')[1])">Shop Men →</a></div>
   </div>
   <div class="collection-panel">
     <img src="https://i.ibb.co/VYcxJb0W/received-1150035970622923.jpg" alt="For Her">
-    <div class="collection-info">
-      <div class="collection-tag">Collection · 18 Scents</div>
-      <div class="collection-name">For Her</div>
-      <a href="#catalog" class="collection-cta" onclick="filterScents('women', document.querySelectorAll('.tab-btn')[2])">Shop Women →</a>
+    <div class="collection-info"><div class="collection-tag">Collection · 18 Scents</div><div class="collection-name">For Her</div><a href="#catalog" class="collection-cta" onclick="filterScents('women',document.querySelectorAll('.tab-btn')[2])">Shop Women →</a></div>
+  </div>
+  <div class="collection-panel">
+    <img src="https://i.ibb.co/CsvRRqjQ/Polish-20260527-101411910.png" alt="Unisex">
+    <div class="collection-info"><div class="collection-tag">Collection · 2 Scents</div><div class="collection-name">Unisex</div><a href="#catalog" class="collection-cta" onclick="filterScents('unisex',document.querySelectorAll('.tab-btn')[3])">Shop Unisex →</a></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-label">Customer Love</span>
+    <h2 class="section-title">What They're <em style="font-style:italic;color:var(--gold-light);">Saying</em></h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Grabe yung Dior Sauvage nila — hindi ko alam na ganito kaganda ang amoy. Sulit na sulit sa ₱419. Babalik talaga ako!"</p>
+      <div class="testimonial-author">— Mark R.</div>
+      <div class="testimonial-location">Quezon City</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Ang Delina ko galing dito, lahat ng friends ko nagtatanong kung saan ko nakuha. Premium talaga ang dating pero abot-kaya. Love it!"</p>
+      <div class="testimonial-author">— Camille T.</div>
+      <div class="testimonial-location">Makati City</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Nag-order ako ng 5 bottles para sa family namin. Sobrang bilis ng response at legit yung amoy. Shiloah Luxe na talaga kami lagi!"</p>
+      <div class="testimonial-author">— Joy M.</div>
+      <div class="testimonial-location">Bulacan</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-header reveal">
+    <span class="section-label">Got Questions?</span>
+    <h2 class="section-title">Frequently <em style="font-style:italic;color:var(--gold-light);">Asked</em></h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Magkano ang isang bote? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Ang bawat bote ay ₱419 — 60ml parfum concentration. Walang nakatagong charges.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Paano mag-order? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Pumili ng gusto mong scent, i-add sa cart, tapos i-click ang "Order Now." Magbubukas ang Facebook Messenger na may pre-filled na order details mo. I-send lang at makikipag-ugnayan na kami sa iyo.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">May delivery ba kayo? Magkano? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Oo, nagde-deliver kami! Ang shipping fee ay depende sa iyong location. Makikipag-usap kami sa iyo sa Messenger para sa eksaktong shipping cost pagkatapos ng iyong order.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Anong payment methods ang tinatanggap ninyo? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Tumatanggap kami ng GCash, Maya, at cash on delivery (COD) para sa ilang areas. I-confirm namin ang payment method sa Messenger.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Gaano katagal bago ma-deliver? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Karaniwang 2–5 araw ang delivery sa Metro Manila, at 3–7 araw sa provincial areas. Ibibigay namin ang tracking number pagkatapos mag-ship.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Authentic ba ang mga pabango ninyo? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Ang aming mga pabango ay inspired versions — hindi branded originals, pero ginawa nang may mataas na kalidad para maging faithful homage sa iconic na mga scent. Makukuha mo ang parehong vibe ng iyong paboritong designer fragrance sa isang fraction ng presyo.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Pwede bang mag-order ng maraming scents? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Syempre! Pwede kang mag-order ng kahit ilang scents sa iisang order. I-add mo lang lahat sa cart bago mag-click ng Order Now.</div>
     </div>
   </div>
 </section>
@@ -589,223 +744,325 @@
 <section class="quote-section">
   <div class="quote-bg-text">Luxe</div>
   <span class="quote-mark">"</span>
-  <blockquote class="quote-text">A fragrance is the invisible part of your personality that leaves a trail wherever you go.</blockquote>
-  <div class="quote-author">— Shiloah Luxe</div>
+  <blockquote class="quote-text reveal">A fragrance is the invisible part of your personality that leaves a trail wherever you go.</blockquote>
+  <div class="quote-author reveal">— Shiloah Luxe</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div>
+    <div class="reveal">
       <div class="footer-brand">Shiloah Luxe</div>
       <p class="footer-tagline">Premium parfum inspired by the world's most iconic fragrances. 39 scents, 60ml each, crafted for everyone.</p>
     </div>
-    <div>
+    <div class="reveal reveal-delay-1">
       <div class="footer-col-title">Shop</div>
       <ul class="footer-links">
         <li><a href="#catalog">All Scents</a></li>
-        <li><a href="#catalog">For Him</a></li>
-        <li><a href="#catalog">For Her</a></li>
-        <li><a href="#catalog">Unisex</a></li>
+        <li><a href="#catalog" onclick="filterScents('men',document.querySelectorAll('.tab-btn')[1])">For Him</a></li>
+        <li><a href="#catalog" onclick="filterScents('women',document.querySelectorAll('.tab-btn')[2])">For Her</a></li>
+        <li><a href="#catalog" onclick="filterScents('unisex',document.querySelectorAll('.tab-btn')[3])">Unisex</a></li>
       </ul>
     </div>
-    <div>
+    <div class="reveal reveal-delay-2">
       <div class="footer-col-title">Info</div>
       <ul class="footer-links">
-        <li><a href="#">Our Story</a></li>
-        <li><a href="#">Ingredients</a></li>
-        <li><a href="#">Gifting</a></li>
-        <li><a href="#">Press</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#how-to-order">How to Order</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
       </ul>
     </div>
-    <div>
-      <div class="footer-col-title">Help</div>
+    <div class="reveal reveal-delay-3">
+      <div class="footer-col-title">Connect</div>
       <ul class="footer-links">
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <!-- ⚠️ PERSONALIZE: Replace # with your actual links -->
+        <li><a href="#" target="_blank">Instagram</a></li>
+        <li><a href="#" target="_blank">TikTok</a></li>
+        <li><a href="https://www.facebook.com/share/1Df7LjCCES/" target="_blank">Facebook</a></li>
+        <li><a href="https://www.facebook.com/share/1Df7LjCCES/" target="_blank">Message Us</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 Shiloah Luxe. All rights reserved.</span>
     <div class="footer-socials">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
-      <a href="#">Facebook</a>
+      <a href="#" target="_blank">Instagram</a>
+      <a href="#" target="_blank">TikTok</a>
+      <a href="https://www.facebook.com/share/1Df7LjCCES/" target="_blank">Facebook</a>
     </div>
   </div>
 </footer>
 
 <!-- CART BAR -->
 <div class="cart-bar" id="cartBar">
-  <div class="cart-bar-left"><span id="cartCount">0</span> scent(s) &nbsp;·&nbsp; Total: <strong id="cartTotal">₱0</strong></div>
-  <div class="cart-bar-right">
-    <button class="cart-clear" onclick="clearCart()">Clear</button>
-    <button class="cart-order" onclick="orderNow()">Order Now →</button>
+  <div class="cart-bar-main">
+    <div class="cart-bar-left"><span id="cartCount">0</span> scent(s) &nbsp;·&nbsp; Total: <strong id="cartTotal">₱0</strong></div>
+    <div class="cart-bar-right">
+      <button class="cart-toggle-summary" onclick="toggleCartSummary()" id="summaryToggle">▲ View Order</button>
+      <button class="cart-clear" onclick="clearCart()">Clear</button>
+      <button class="cart-order" onclick="orderNow()">Order Now →</button>
+    </div>
+  </div>
+  <div class="cart-summary-drawer" id="cartSummaryDrawer"></div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- SCENT DETAIL MODAL -->
+<div class="scent-modal-overlay" id="scentModalOverlay" onclick="closeScentModal(event)">
+  <div class="scent-modal">
+    <button class="scent-modal-close" onclick="closeScentModalDirect()">✕</button>
+    <div class="scent-modal-tag" id="modalTag"></div>
+    <div class="scent-modal-name" id="modalName"></div>
+    <div class="scent-modal-type" id="modalType"></div>
+    <div class="scent-modal-notes">
+      <div class="notes-label">Top Notes</div>
+      <div class="notes-row" id="modalTop"></div>
+      <div class="notes-label">Heart Notes</div>
+      <div class="notes-row" id="modalHeart"></div>
+      <div class="notes-label">Base Notes</div>
+      <div class="notes-row" id="modalBase"></div>
+    </div>
+    <p class="scent-modal-desc" id="modalDesc"></p>
+    <div class="scent-modal-footer">
+      <div class="scent-modal-price">₱419</div>
+      <button class="scent-modal-add" id="modalAddBtn" onclick="addFromModal()">Add to Cart</button>
+    </div>
   </div>
 </div>
 
 <!-- ORDER MODAL -->
-<div id="orderModal" style="
-  display:none; position:fixed; inset:0; z-index:999;
-  background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
-  align-items:center; justify-content:center;
-">
-  <div style="
-    background:#111; border:1px solid rgba(201,168,76,0.3);
-    max-width:480px; width:90%; padding:2.5rem;
-    text-align:center; position:relative;
-  ">
-    <!-- Close -->
-    <button onclick="closeModal()" style="
-      position:absolute; top:1rem; right:1.2rem;
-      background:none; border:none; color:rgba(250,247,242,0.4);
-      font-size:1.2rem; cursor:pointer;
-    ">✕</button>
-
-    <!-- Icon -->
-    <div style="font-size:2rem; margin-bottom:1rem;">🛍️</div>
-
-    <!-- Title -->
-    <div style="
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.6rem; font-weight:300; color:#FAF7F2;
-      margin-bottom:0.5rem;
-    ">Almost there!</div>
-
-    <!-- Instruction box -->
-    <div style="
-      background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.35);
-      padding:1.2rem 1.5rem; margin:1.2rem 0 1.5rem;
-    ">
-      <div style="font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.6rem;">Important</div>
-      <div style="font-size:0.85rem; line-height:1.7; color:#FAF7F2;">
-        When you message us on Facebook,<br>
-        please mention <span style="color:#e8c97a; font-weight:600; font-size:1rem;">ADRIAN</span> so we know<br>
-        who to credit your order to. 😊
-      </div>
+<div id="orderModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div style="background:#111;border:1px solid rgba(201,168,76,0.3);max-width:480px;width:90%;padding:2.5rem;text-align:center;position:relative;">
+    <button onclick="closeModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:rgba(250,247,242,0.4);font-size:1.2rem;cursor:pointer;">✕</button>
+    <div style="font-size:2rem;margin-bottom:1rem;">🛍️</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#FAF7F2;margin-bottom:0.5rem;">Almost there!</div>
+    <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);padding:1.2rem 1.5rem;margin:1.2rem 0 1.5rem;">
+      <div style="font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:0.6rem;">Important</div>
+      <div style="font-size:0.85rem;line-height:1.7;color:#FAF7F2;">When you message us on Facebook,<br>please mention <span style="color:#e8c97a;font-weight:600;font-size:1rem;">ADRIAN</span> so we know<br>who to credit your order to. 😊</div>
     </div>
-
-    <!-- Order summary -->
-    <div id="modalSummary" style="
-      text-align:left; margin-bottom:1.5rem;
-      font-size:0.72rem; line-height:1.9;
-      color:rgba(250,247,242,0.6);
-      max-height:160px; overflow-y:auto;
-    "></div>
-
-    <!-- Total -->
-    <div id="modalTotal" style="
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.4rem; color:#C9A84C;
-      margin-bottom:1.8rem; letter-spacing:0.05em;
-    "></div>
-
-    <!-- CTA Button -->
-    <a id="fbLink" href="https://www.facebook.com/share/1Df7LjCCES/" target="_blank"
-      onclick="closeModal()"
-      style="
-        display:block; background:#C9A84C; color:#0a0a0a;
-        text-decoration:none; font-size:0.7rem;
-        letter-spacing:0.25em; text-transform:uppercase;
-        font-weight:600; padding:1rem 2rem;
-        transition:opacity 0.2s;
-      "
-    >Message Us on Facebook →</a>
-
-    <div style="margin-top:1rem; font-size:0.6rem; letter-spacing:0.15em; color:rgba(250,247,242,0.25);">
-      Don't forget to say <strong style="color:rgba(201,168,76,0.6);">ADRIAN</strong> in your message!
-    </div>
+    <div id="modalSummary" style="text-align:left;margin-bottom:1.5rem;font-size:0.72rem;line-height:1.9;color:rgba(250,247,242,0.6);max-height:160px;overflow-y:auto;"></div>
+    <div id="modalTotal" style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:#C9A84C;margin-bottom:1.8rem;letter-spacing:0.05em;"></div>
+    <a id="fbLink" href="#" target="_blank" onclick="closeModal()" style="display:block;background:#C9A84C;color:#0a0a0a;text-decoration:none;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;padding:1rem 2rem;transition:opacity 0.2s;">Message Us on Facebook →</a>
+    <div style="margin-top:1rem;font-size:0.6rem;letter-spacing:0.15em;color:rgba(250,247,242,0.25);">Don't forget to say <strong style="color:rgba(201,168,76,0.6);">ADRIAN</strong> in your message!</div>
   </div>
 </div>
 
 <script>
-  let cart = [];
+  let cart = {};
+  let currentModalScent = null;
 
+  /* ── LOADER ── */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 2200);
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── MOBILE MENU ── */
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  /* ── FILTER & SEARCH ── */
   function filterScents(category, btn) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
     document.querySelectorAll('.scent-card').forEach(card => {
-      if (category === 'all' || card.dataset.category === category) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
+      card.classList.toggle('hidden', category !== 'all' && card.dataset.category !== category);
     });
     checkNoResults();
   }
-
   function searchScents(val) {
     const q = val.toLowerCase().trim();
     document.querySelectorAll('.scent-card').forEach(card => {
-      const name = card.dataset.name || '';
-      if (!q || name.includes(q)) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
+      card.classList.toggle('hidden', q && !card.dataset.name.includes(q));
     });
-    if (q) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    }
+    if (q) document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     checkNoResults();
   }
-
   function checkNoResults() {
     const visible = [...document.querySelectorAll('.scent-card')].filter(c => !c.classList.contains('hidden'));
     document.getElementById('noResults').classList.toggle('visible', visible.length === 0);
   }
 
-  function addToCart(btn, name) {
-    if (btn.classList.contains('added')) {
-      btn.classList.remove('added');
-      btn.textContent = '+';
-      cart = cart.filter(i => i !== name);
+  /* ── SCENT DETAIL MODAL ── */
+  function openScentModal(card) {
+    const name = card.querySelector('.scent-name').textContent;
+    const meta = card.querySelector('.scent-meta').textContent;
+    const category = card.dataset.category;
+    const data = card.querySelector('.scent-data');
+    currentModalScent = name;
+
+    document.getElementById('modalTag').textContent = category === 'men' ? 'For Him' : category === 'women' ? 'For Her' : 'Unisex';
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalType').textContent = meta;
+
+    const makeChips = (str) => str.split(',').map(n => `<span class="note-chip">${n.trim()}</span>`).join('');
+    document.getElementById('modalTop').innerHTML = makeChips(data.dataset.top);
+    document.getElementById('modalHeart').innerHTML = makeChips(data.dataset.heart);
+    document.getElementById('modalBase').innerHTML = makeChips(data.dataset.base);
+    document.getElementById('modalDesc').textContent = data.dataset.desc;
+
+    const addBtn = document.getElementById('modalAddBtn');
+    if (cart[name]) {
+      addBtn.textContent = '✓ Added';
+      addBtn.classList.add('added');
     } else {
-      btn.classList.add('added');
-      btn.textContent = '✓';
-      cart.push(name);
+      addBtn.textContent = 'Add to Cart';
+      addBtn.classList.remove('added');
+    }
+
+    document.getElementById('scentModalOverlay').classList.add('open');
+  }
+  function closeScentModal(e) {
+    if (e.target === document.getElementById('scentModalOverlay')) closeScentModalDirect();
+  }
+  function closeScentModalDirect() {
+    document.getElementById('scentModalOverlay').classList.remove('open');
+    currentModalScent = null;
+  }
+  function addFromModal() {
+    if (!currentModalScent) return;
+    const name = currentModalScent;
+    const addBtn = document.getElementById('modalAddBtn');
+    if (cart[name]) {
+      addBtn.textContent = 'Add to Cart';
+      addBtn.classList.remove('added');
+      delete cart[name];
+      // sync card button
+      document.querySelectorAll('.scent-card').forEach(card => {
+        if (card.querySelector('.scent-name').textContent === name) {
+          const btn = card.querySelector('.scent-add');
+          const qty = card.querySelector('.qty-controls');
+          btn.style.display = 'flex'; btn.textContent = '+';
+          qty.classList.remove('visible');
+          qty.querySelector('.qty-num').textContent = 1;
+        }
+      });
+    } else {
+      cart[name] = 1;
+      addBtn.textContent = '✓ Added';
+      addBtn.classList.add('added');
+      document.querySelectorAll('.scent-card').forEach(card => {
+        if (card.querySelector('.scent-name').textContent === name) {
+          const btn = card.querySelector('.scent-add');
+          const qty = card.querySelector('.qty-controls');
+          btn.style.display = 'none';
+          qty.classList.add('visible');
+          qty.querySelector('.qty-num').textContent = 1;
+        }
+      });
     }
     updateCartBar();
   }
 
-  function updateCartBar() {
-    const bar = document.getElementById('cartBar');
-    document.getElementById('cartCount').textContent = cart.length;
-    document.getElementById('cartTotal').textContent = '₱' + (cart.length * 399).toLocaleString();
-    bar.classList.toggle('visible', cart.length > 0);
+  /* ── CART ── */
+  function addToCart(btn, name) {
+    const card = btn.closest('.scent-card');
+    const qtyEl = card.querySelector('.qty-controls');
+    if (cart[name]) {
+      delete cart[name];
+      btn.style.display = 'flex'; btn.textContent = '+';
+      qtyEl.classList.remove('visible');
+    } else {
+      cart[name] = 1;
+      btn.style.display = 'none';
+      qtyEl.classList.add('visible');
+      qtyEl.querySelector('.qty-num').textContent = 1;
+    }
+    updateCartBar();
   }
-
+  function changeQty(btn, name, delta) {
+    const card = btn.closest('.scent-card');
+    const qtyEl = card.querySelector('.qty-controls');
+    const addBtn = card.querySelector('.scent-add');
+    const numEl = qtyEl.querySelector('.qty-num');
+    if (!cart[name]) return;
+    cart[name] += delta;
+    if (cart[name] <= 0) {
+      delete cart[name];
+      qtyEl.classList.remove('visible');
+      addBtn.style.display = 'flex'; addBtn.textContent = '+';
+    } else {
+      numEl.textContent = cart[name];
+    }
+    updateCartBar();
+  }
+  function updateCartBar() {
+    const entries = Object.entries(cart);
+    const totalQty = entries.reduce((s,[,q]) => s+q, 0);
+    const totalPrice = entries.reduce((s,[,q]) => s+q*419, 0);
+    document.getElementById('cartCount').textContent = totalQty;
+    document.getElementById('cartTotal').textContent = '₱' + totalPrice.toLocaleString();
+    document.getElementById('cartBar').classList.toggle('visible', totalQty > 0);
+    const drawer = document.getElementById('cartSummaryDrawer');
+    drawer.innerHTML = entries.length ? entries.map(([name,qty]) =>
+      `<div class="cart-summary-item"><span class="cart-item-name">${name}${qty>1?` ×${qty}`:''}</span><span class="cart-item-price">₱${(qty*419).toLocaleString()}</span></div>`
+    ).join('') : '';
+    if (!entries.length) drawer.classList.remove('open');
+  }
+  function toggleCartSummary() {
+    const drawer = document.getElementById('cartSummaryDrawer');
+    const btn = document.getElementById('summaryToggle');
+    drawer.classList.toggle('open');
+    btn.textContent = drawer.classList.contains('open') ? '▼ Hide Order' : '▲ View Order';
+  }
   function clearCart() {
-    cart = [];
-    document.querySelectorAll('.scent-add').forEach(b => {
-      b.classList.remove('added');
-      b.textContent = '+';
-    });
+    cart = {};
+    document.querySelectorAll('.scent-add').forEach(b => { b.style.display='flex'; b.textContent='+'; });
+    document.querySelectorAll('.qty-controls').forEach(el => { el.classList.remove('visible'); el.querySelector('.qty-num').textContent=1; });
+    document.getElementById('cartSummaryDrawer').classList.remove('open');
+    document.getElementById('summaryToggle').textContent = '▲ View Order';
     updateCartBar();
   }
 
+  /* ── ORDER NOW — auto-fill Facebook message ── */
   function orderNow() {
-    if (cart.length === 0) return;
-    const total = cart.length * 399;
-    // Populate modal summary
-    document.getElementById('modalSummary').innerHTML =
-      cart.map((s, i) => `<div>• ${s} <span style="float:right;color:#C9A84C;">₱419</span></div>`).join('');
+    const entries = Object.entries(cart);
+    if (!entries.length) return;
+    const total = entries.reduce((s,[,q])=>s+q*419,0);
+
+    // Build auto-fill message
+    const itemList = entries.map(([name,qty]) => `• ${name}${qty>1?` x${qty}`:''} — ₱${(qty*419).toLocaleString()}`).join('\n');
+    const message = `Hi! Gusto ko sana mag-order mula sa ADRIAN 😊\n\n${itemList}\n\nTotal: ₱${total.toLocaleString()}\n\nSalamat!`;
+    const encodedMsg = encodeURIComponent(message);
+    const fbUrl = `https://www.facebook.com/share/1Df7LjCCES/`;
+
+    document.getElementById('modalSummary').innerHTML = entries.map(([name,qty]) =>
+      `<div>• ${name}${qty>1?` ×${qty}`:''} <span style="float:right;color:#C9A84C;">₱${(qty*419).toLocaleString()}</span></div>`
+    ).join('');
     document.getElementById('modalTotal').textContent = 'Total: ₱' + total.toLocaleString();
-    // Show modal
-    const modal = document.getElementById('orderModal');
-    modal.style.display = 'flex';
+    document.getElementById('fbLink').href = fbUrl;
+    document.getElementById('orderModal').style.display = 'flex';
+  }
+  function closeModal() { document.getElementById('orderModal').style.display='none'; }
+  document.getElementById('orderModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+  /* ── FAQ ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 
-  function closeModal() {
-    document.getElementById('orderModal').style.display = 'none';
-  }
-
-  // Close modal on backdrop click
-  document.getElementById('orderModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
+  /* ── BACK TO TOP ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 600);
   });
 </script>
 </body>
